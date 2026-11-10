@@ -18,7 +18,7 @@ if command -v apt >/dev/null 2>&1; then
     echo "Detected apt. Installing packages..."
     
     sudo apt update
-    sudo apt install -y nginx
+    sudo apt install -y nginx certbot python3-certbot-nginx
 	sudo systemctl enable --now nginx
 	
 	sudo rm -f /etc/nginx/sites-enabled/default
@@ -47,8 +47,8 @@ fi
 sudo nginx -t && sudo systemctl reload nginx
 
 
-# sudo certbot --nginx --reinstall -d "$SERVER_NAME"
-# sudo certbot renew --dry-run
+sudo certbot --nginx --reinstall -d "$SERVER_NAME"
+sudo certbot renew --dry-run
 
 echo "To check https try visit: https://$SERVER_NAME"
 
