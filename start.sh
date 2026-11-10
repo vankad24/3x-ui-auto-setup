@@ -3,6 +3,7 @@ set -e
 
 REPO_URL="https://github.com/vankad24/3x-ui-auto-setup.git"   # <-- укажи реальный URL репозитория
 TARGET_DIR="/var/www/3x-ui-auto-setup"
+ENV_FILE="$TARGET_DIR/.env"
 
 # Проверяем существование директории
 if [ ! -d "$TARGET_DIR" ]; then
@@ -10,7 +11,10 @@ if [ ! -d "$TARGET_DIR" ]; then
     # Создаём родительскую директорию на случай, если /var/www отсутствует
     mkdir -p "$(dirname "$TARGET_DIR")"
     git clone "$REPO_URL" "$TARGET_DIR"
+fi
 
+
+if [ ! -s "$ENV_FILE" ]; then
     # Спрашиваем имя сервера
     read -rp "Введите имя сервера: " SERVER_NAME
     # Простая валидация — не пустое
@@ -18,12 +22,8 @@ if [ ! -d "$TARGET_DIR" ]; then
         echo "Ошибка: имя сервера не может быть пустым." >&2
         exit 1
     fi
-    # Экранируем кавычки и обратные слеши, чтобы не сломать .env
-    ESCAPED_NAME=${SERVER_NAME//\\/\\\\}
-    ESCAPED_NAME=${ESCAPED_NAME//\"/\\\"}
     # Пишем .env
-    ENV_FILE="$TARGET_DIR/.env"
-    echo "SERVER_NAME=\"$ESCAPED_NAME\"" > "$ENV_FILE"
+    echo "SERVER_NAME=\"$SERVER_NAME\"" > "$ENV_FILE"
     echo "Записан $ENV_FILE:"
     cat "$ENV_FILE"
 fi
