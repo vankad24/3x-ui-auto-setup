@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 REPO_URL="https://github.com/vankad24/3x-ui-auto-setup.git"   # <-- укажи реальный URL репозитория
@@ -34,4 +34,4 @@ echo "Начинаю установку nginx"
 sh ./setup-nginx.sh
 
 echo "Начинаю установку 3x-ui"
-sh -c "$(wget -qO- https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)"
+bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
