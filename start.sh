@@ -30,8 +30,9 @@ fi
 
 
 cd "$TARGET_DIR"
+echo "Начинаю установку 3x-ui"
+bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+
 echo "Начинаю установку nginx"
 sh ./setup-nginx.sh
 
-echo "Начинаю установку 3x-ui"
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
