@@ -1,0 +1,11 @@
+server {
+    listen 80;
+    server_name {SERVER_NAME};
+
+    root /var/www/3x-ui-auto-setup;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
