@@ -1,5 +1,5 @@
 #!/bin/sh
-set -euo pipefail
+set -e
 
 REPO_URL="https://github.com/vankad24/3x-ui-auto-setup.git"   # <-- укажи реальный URL репозитория
 TARGET_DIR="/var/www/3x-ui-auto-setup"
