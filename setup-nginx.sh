@@ -21,6 +21,8 @@ if command -v apt >/dev/null 2>&1; then
     sudo apt install -y nginx
 	sudo systemctl enable --now nginx
 	
+	sudo rm -f /etc/nginx/sites-enabled/default
+
 	sed "s/{SERVER_NAME}/$SERVER_NAME/g" nginx-config.template | sudo tee "/etc/nginx/sites-available/$CONFIG_NAME" > /dev/null
 	sudo ln -sfn /etc/nginx/sites-available/$CONFIG_NAME /etc/nginx/sites-enabled/$CONFIG_NAME
 	

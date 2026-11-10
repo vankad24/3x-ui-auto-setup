@@ -34,5 +34,4 @@ echo "Начинаю установку nginx"
 sh ./setup-nginx.sh
 
 echo "Начинаю установку 3x-ui"
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
-
+sh -c "$(wget -qO- https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)"
