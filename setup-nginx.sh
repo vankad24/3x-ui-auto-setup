@@ -44,7 +44,7 @@ else
     exit 1
 fi
 
-sudo certbot certonly --webroot -w /var/www/3x-ui-auto-setup -d "$SERVER_NAME"
+sudo certbot certonly --webroot --keep-until-expiring -w /var/www/3x-ui-auto-setup -d "$SERVER_NAME"
 sudo nginx -t && sudo systemctl reload nginx
 
 sudo certbot renew --dry-run
