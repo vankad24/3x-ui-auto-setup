@@ -44,10 +44,9 @@ else
     exit 1
 fi
 
+sudo certbot certonly --webroot -w /var/www/3x-ui-auto-setup -d "$SERVER_NAME"
 sudo nginx -t && sudo systemctl reload nginx
 
-
-sudo certbot --nginx --reinstall -d "$SERVER_NAME"
 sudo certbot renew --dry-run
 
 echo "To check https try visit: https://$SERVER_NAME"

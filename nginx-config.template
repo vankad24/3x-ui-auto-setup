@@ -1,11 +1,38 @@
+
+# Блок для порта 80: продление сертификата и редирект на HTTPS
 server {
     listen 80;
+    listen [::]:80;
     server_name {SERVER_NAME};
+
+    # Папка для проверки Let's Encrypt
+    location /.well-known/acme-challenge/ {
+        root /var/www/3x-ui-auto-setup;
+    }
+
+    # Все остальные запросы перенаправляем на HTTPS
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+# Блок для самого сайта-заглушки на локальном порту
+server {
+    # Слушаем только localhost, порт 443 остается свободным для Xray
+    listen 127.0.0.1:8443 ssl http2;
+    server_name {SERVER_NAME};
+
+    # Пути к сертификатам, которые уже выпустил Certbot
+    ssl_certificate /etc/letsencrypt/live/{SERVER_NAME}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{SERVER_NAME}/privkey.pem;
+    
+    # Рекомендуемые параметры SSL
+    ssl_protocols TLSv1.2 TLSv1.3;
 
     root /var/www/3x-ui-auto-setup;
     index index.html;
 
     location / {
-        try_files $uri $uri/ /index.html;
+        try_files $uri $uri/ =404;
     }
 }
